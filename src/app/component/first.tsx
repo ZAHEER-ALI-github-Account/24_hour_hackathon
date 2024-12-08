@@ -1,5 +1,5 @@
 import Image from "next/image";
-import bg from "@/app/images/BG.png";
+import bg from "@/app/images/bg.png";
 import heroinfo from "@/app/images/heroinfo.png";
 import companylogo from "@/app/images/companylogo.png";
 import kursi from "@/app/images/kursi.png";
