@@ -1,103 +1,104 @@
-"use client"
-import 'remixicon/fonts/remixicon.css';
-import Image from 'next/image';
-import logoicon from "@/app/images/logoicon.png"
-import Link from 'next/link';
-import { useState } from 'react';
+"use client";
+import "remixicon/fonts/remixicon.css";
+import Link from "next/link";
+import Image from "next/image";
+import logoicon from "@/app/images/logoicon.png";
+import { useState, useRef, useEffect } from "react";
+import { UserButton } from "@clerk/nextjs"; // Clerk User Button
 
-export default function Navbar() {
-    const [open, setOpen] = useState(false);
+function Navbar() {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
 
-    const menuBtn = () => {
-        setOpen(!open);
+  function handleMenuButton(event: React.MouseEvent) {
+    event.stopPropagation();
+    setMenuOpen(!menuOpen);
+  }
+
+  useEffect(() => {
+    function handleOutsideClick(event: MouseEvent) {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setMenuOpen(false);
+      }
+    }
+
+    if (menuOpen) {
+      document.addEventListener("click", handleOutsideClick);
+    }
+
+    return () => {
+      document.removeEventListener("click", handleOutsideClick);
     };
+  }, [menuOpen]);
 
-    return (
-        <div>
-            <div className="h-[203px] w-full">
-                <div className="xs:h-[50px] md:h-[45px] bg-[#272343]  md:px-52 flex xs:flex-col md:flex-row text-[#ffffff] xs:py-1 md:justify-between items-center text-[13px] font-[Inter] font-normal">
-                    <p><i className="ri-check-fill"></i>Free shipping on all orders over $50</p>
-                    <div className="h-[17px] w-[230px] flex gap-6">
-                        <p>Eng<i className="ri-arrow-down-wide-line"></i></p>
-                        <Link href="/faq"><p>Faqs</p></Link>
-                        <p><i className="ri-question-line"></i>Need Help</p>
-                    </div>
-                </div>
-                <div className='h-[84px] w-full bg-[#F0F2F3] xs:px-12 md:px-52 flex justify-between items-center xs:text-center'>
-                    <div className='h-10 w-[116px] flex gap-2 '>
-                        <Image src={logoicon} alt="Logo" />
-                        <h2 className=' xs:text-lg md:text-[26px] font-medium font-[Inter]'>Comforty</h2>
-                    </div>
-                    <div className=' xs:h-[35px] md:h-[44px]  xs:w-[100px] md:w-[130px] bg-white flex text-black text-xs font-[Inter] font-medium py-[11px] md:px-4 gap-4 rounded-lg items-center'>
-                        <Link href="/cart"><i className="ri-shopping-cart-2-line text-lg"></i></Link>
-                        <p>Cart</p>
-                        <div className='h-5 w-5 rounded-full bg-green-700 flex items-center justify-center text-white'>2</div>
-                    </div>
-                </div>
-                <div className='h-[74px] w-full  xs:px-14 md:px-52 flex items-center justify-between'>
-                    <div className='h-4 w-[339px] font-[Inter] text-sm font-medium flex justify-between'>
-                        {/* Hamburger Menu for Small Screens */}
-                        <button
-                            className="block md:hidden xs:ml-3"
-                            onClick={menuBtn}
-                            aria-label="Toggle navigation"
-                        >
-                            <svg
-                                className="w-6 h-6"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth="2"
-                                    d="M4 6h16M4 12h16M4 18h16"
-                                ></path>
-                            </svg>
-                        </button>
-
-                        {/* Links */}
-                        <div
-                            className={`${
-                                open ? "block" : "hidden"
-                            } md:flex space-y-4 md:space-y-0 md:space-x-6 md:items-center`}
-                        >
-                            <Link href="/" className="block px-4 py-2 hover:underline hover:font-bold">
-                                Home
-                            </Link>
-                            <Link
-                                href="./shop"
-                                className="block px-4 py-2 hover:underline hover:font-bold"
-                            >
-                                Shop
-                            </Link>
-                            <Link
-                                href="/product"
-                                className="block px-4 py-2 hover:underline hover:font-bold"
-                            >
-                                Product
-                            </Link>
-                            <Link
-                                href="/contact"
-                                className="block px-4 py-2 hover:underline hover:font-bold"
-                            >
-                                Contact
-                            </Link>
-                            <Link
-                                href="/about"
-                                className="block px-4 py-2 hover:underline hover:font-bold"
-                            >
-                                About
-                            </Link>
-                        </div>
-                    </div>
-                    <div className=' xs:w-full md:w-[168px]'>
-                        <p className='font-[Inter] xs:text-[10px] md:text-sm font-normal'>Contact: <span className='font-medium'>(808-555-011)</span></p>
-                    </div>
-                </div>
-            </div>
+  return (
+    <div className="font-inter">
+      {/* Top Navigation Bar */}
+      <div className="px-[5vw] lg:px-[10vw] w-full h-[45px] bg-[#272343] text-white flex items-center justify-center lg:justify-between">
+        <h1 className="hidden lg:block">
+          <i className="ri-check-fill"></i> Free shipping on all orders over $50
+        </h1>
+        <div className="flex gap-4 md:gap-6">
+          <select className="bg-[#272343]">
+            <option>English</option>
+            <option>Urdu</option>
+            <option>Arabic</option>
+          </select>
+          <Link href="/faq">Faqs</Link>
+          <h3 className="flex items-center gap-1">
+            <i className="ri-question-line"></i> Need Help
+          </h3>
         </div>
-    );
+      </div>
+
+      {/* Middle Navigation Bar */}
+      <div className="px-[3vw] md:px-[5vw] lg:px-[7vw] h-[84px] bg-[#F0F2F3] w-full flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <Image src={logoicon} alt="Logo" width={50} height={50} className="h-[40px] object-cover" />
+          <h1 className="text-lg md:text-xl font-medium">Comforty</h1>
+        </div>
+        <div className="flex bg-white rounded-md shadow items-center gap-2 p-2">
+          <Link href="/cart" className="p-2 hover:scale-105">
+            <i className="ri-shopping-cart-2-line text-[22px] md:text-[26px]"></i>
+          </Link>
+          <Link href="/wishlist" className="p-2 hover:scale-105">
+            <i className="ri-heart-2-line text-[22px] md:text-[26px]"></i>
+          </Link>
+          <UserButton afterSignOutUrl="/sign-in" /> {/* Clerk User Button */}
+        </div>
+      </div>
+
+      {/* Main Navigation */}
+      <nav className="flex justify-between px-[5vw] h-[70px] items-center font-medium">
+        <button className="md:hidden" onClick={handleMenuButton}>
+          <i className="ri-menu-line text-[26px]"></i>
+        </button>
+        <div className="hidden md:flex gap-6">
+          <Link href="/" className="hover:text-orange-600">Home</Link>
+          <Link href="/product" className="hover:text-orange-600">Product</Link>
+          <Link href="/about" className="hover:text-orange-600">About</Link>
+          <Link href="/blog" className="hover:text-orange-600">Blog</Link>
+        </div>
+        <Link href="/contact" className="hover:text-orange-600">Contact: (808-555-011)</Link>
+      </nav>
+
+      {/* Mobile Navigation Menu */}
+      <div
+        ref={menuRef}
+        className={`fixed top-0 left-0 h-full w-[60%] bg-[#F0F2F3] p-6 transition-transform duration-300 ease-in-out transform ${menuOpen ? "translate-x-0" : "-translate-x-full"} z-50`}
+      >
+        <button onClick={() => setMenuOpen(false)} className="absolute top-4 right-4 text-2xl">
+          <i className="ri-close-large-line"></i>
+        </button>
+        <div className="flex flex-col gap-6 mt-10 text-lg font-semibold">
+          <Link href="/" onClick={() => setMenuOpen(false)} className="hover:text-orange-600">Home</Link>
+          <Link href="/product" onClick={() => setMenuOpen(false)} className="hover:text-orange-600">Product</Link>
+          <Link href="/about" onClick={() => setMenuOpen(false)} className="hover:text-orange-600">About</Link>
+          <Link href="/blog" onClick={() => setMenuOpen(false)} className="hover:text-orange-600">Blog</Link>
+        </div>
+      </div>
+    </div>
+  );
 }
+
+export default Navbar;

@@ -3,54 +3,53 @@ import orange1 from "@/app/images/orange1.png";
 import card from "@/app/images/card.png";
 import cardone from "@/app/images/cardone.png";
 import chair from "@/app/images/chair.png";
-const explore = () => {
-    return (
-        <div className="flex w-[100%] md:h-[548px] space-x-2 xs:flex-col md:flex-row mt-28 md:ml-44">
-            <div className="h-full md:w-[448px] flex items-center justify-center relative">
-              <div>
-                <Image
-                  src={orange1}
-                  alt=""
-                  className=" md:h-[548px] object-cover hover:scale-105 duration-150 cursor-pointer rounded-md"
-                />
-                <div className="-rotate-90 md:w-[648px] bg-white  xs:text-[18px] xs:w-[350px] xs:top-[40%] xs:right-[40%] md:text-[28px] px-2 py-2 font-normal  xs:h-[50px] md:h-[58px] absolute md:top-[36%]  md:right-[27%]">EXPLORE NEW AND POPULAR STYLES </div>
-              </div>
-            </div>
-            <div className="h-full md:w-[548px] flex flex-col xs:px-3 space-y-2 xs:mt-5">
-              <div className="w-full h-[50%] flex space-x-2  ">
-                <div className="w-[50%] h-full">
-                  <Image
-                    src={card}
-                    alt=""
-                    className="hover:scale-105 duration-150 cursor-pointer"
-                  />
-                </div>
-                <div className="w-[50%] h-full">
-                  <Image
-                    src={chair}
-                    alt=""
-                    className="hover:scale-105 duration-150 cursor-pointer rounded-md"
-                  />
-                </div>
-              </div>
-              <div className="w-full h-[50%] space-x-2  bg-red- flex">
-                <div className="w-[50%] h-full">
-                  <Image
-                    src={cardone}
-                    alt=""
-                    className="hover:scale-105 duration-150 cursor-pointer rounded-md "
-                  />
-                </div>
-                <div className="w-[50%] h-full">
-                  <Image
-                    src={chair}
-                    alt=""
-                    className="hover:scale-105 duration-150 cursor-pointer rounded-md"
-                  />
-                </div>
-              </div>
-            </div>
+
+const Explore = () => {
+  return (
+    <div className="w-full px-4 md:px-20 mt-20">
+      {/* Section Header */}
+      <h1 className="text-3xl md:text-5xl font-bold text-center text-gray-900">
+        Explore <span className="text-orange-500">New & Popular</span> Styles
+      </h1>
+
+      {/* Grid Container */}
+      <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Left Side - Hero Image with Text Overlay */}
+        <div className="relative h-[400px] md:h-[550px] rounded-lg overflow-hidden shadow-lg">
+          <Image
+            src={orange1}
+            alt="Explore Styles"
+            layout="fill"
+            objectFit="cover"
+            className="transition-transform duration-300 hover:scale-105"
+          />
+          <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+            <h2 className="text-white text-2xl md:text-3xl font-semibold uppercase text-center">
+              Discover The Latest Trends
+            </h2>
           </div>
-    )
-}
-export default explore;
+        </div>
+
+        {/* Right Side - Small Product Cards */}
+        <div className="grid grid-cols-2 gap-4">
+          {[card, chair, cardone, chair].map((image, index) => (
+            <div
+              key={index}
+              className="relative h-[200px] md:h-[270px] rounded-lg overflow-hidden shadow-lg"
+            >
+              <Image
+                src={image}
+                alt={`Explore ${index}`}
+                layout="fill"
+                objectFit="cover"
+                className="transition-transform duration-300 hover:scale-105"
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Explore;
