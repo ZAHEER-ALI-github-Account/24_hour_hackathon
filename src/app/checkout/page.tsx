@@ -7,11 +7,9 @@ import Image from "next/image";
 import { urlFor } from "@/sanity/lib/image";
 import { client } from "@/sanity/lib/client";
 import Swal from "sweetalert2";
-import { useAuth, RedirectToSignIn } from "@clerk/nextjs"; // ✅ Clerk authentication import
 import { useRouter } from "next/navigation";
 
 const Checkout = () => {
-    const { isSignedIn } = useAuth(); // ✅ Clerk authentication
     const router = useRouter();
     
     const [cartItems, setCartItems] = useState<Product[]>([]);
@@ -35,13 +33,6 @@ const Checkout = () => {
         zipCode: false,
         city: false,
     });
-
-    // Redirect to sign-in page if user is not authenticated
-    useEffect(() => {
-        if (!isSignedIn) {
-            router.push("/sign-in");
-        }
-    }, [isSignedIn, router]);
 
     useEffect(() => {
         setCartItems(getCartItems());
@@ -114,7 +105,7 @@ const Checkout = () => {
                 title: "Order Placed!",
                 text: "Thank you for your purchase. Your order has been placed successfully.",
             }).then(() => {
-                router.push("/"); // Redirect to home or order confirmation page
+                router.push("/");
             });
         } catch (error) {
             console.log("error creating order", error);
@@ -126,10 +117,6 @@ const Checkout = () => {
         }
     };
 
-    if (!isSignedIn) {
-        return <RedirectToSignIn />;
-    }
-
     return (
         <div className="min-h-screen bg-gray-100 p-6">
             <div className="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-md">
@@ -139,7 +126,6 @@ const Checkout = () => {
                 </nav>
                 
                 <div className="grid md:grid-cols-2 gap-6">
-                    {/* Order Summary */}
                     <div className="p-4 border rounded-lg shadow-sm bg-gray-50">
                         <h2 className="text-xl font-semibold mb-4">Order Summary</h2>
                         {cartItems.length > 0 ? (
@@ -171,7 +157,6 @@ const Checkout = () => {
                         </div>
                     </div>
                     
-                    {/* Billing Information */}
                     <div className="p-4 border rounded-lg shadow-sm bg-gray-50">
                         <h2 className="text-xl font-semibold mb-4">Billing Information</h2>
                         <form className="grid gap-4">
