@@ -1,21 +1,22 @@
 import Navbar from "./component/navbar";
 import First from "./component/first";
-import FeaturedComponent from "./component/featured";
-import CategoriesComponent from "./component/categories";
+import Featured from "./component/featured";
+import Categories from "./component/categories";
 import Explore from "./component/explore";
-import ProductComponent from "./component/product";
+import Product from "./component/product";
 import Footer from "./component/footer";
 
-export default async function home() {
+const home = () => {
   return (
     <div className="overflow-hidden">
       <Navbar/>
       <First/>
-      <FeaturedComponent/>
-      <CategoriesComponent/>
+      <Featured/>
+      <Categories/>
       <Explore/>
-      <ProductComponent/>
+      <Product/>
       <Footer/>
     </div>
   )
 }
+export default home;
