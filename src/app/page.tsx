@@ -12,9 +12,9 @@ export default async function home() {
       <Navbar/>
       <First/>
       <FeaturedComponent/>
-      <Categories/>
+      <CategoriesComponent/>
       <Explore/>
-      <Product/>
+      <ProductComponent/>
       <Footer/>
     </div>
   )
