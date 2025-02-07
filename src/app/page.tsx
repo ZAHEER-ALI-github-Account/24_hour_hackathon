@@ -1,12 +1,12 @@
 import Navbar from "./component/navbar";
 import First from "./component/first";
 import FeaturedComponent from "./component/featured";
-import Categories from "./component/categories";
+import CategoriesComponent from "./component/categories";
 import Explore from "./component/explore";
-import Product from "./component/product";
+import ProductComponent from "./component/product";
 import Footer from "./component/footer";
 
-export default async function home {
+export default async function home() {
   return (
     <div className="overflow-hidden">
       <Navbar/>
