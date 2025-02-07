@@ -2,7 +2,7 @@ import { client } from "@/sanity/lib/client";
 import ProductCard from "@/app/component/productCard";
 import { Product } from "../types/product";
 
-export default async function FeaturedComponent() {
+export default async function Featured() {
            const resp = await client.fetch(`*[_type=="products"][0..2]{
               _id,
                 title,
