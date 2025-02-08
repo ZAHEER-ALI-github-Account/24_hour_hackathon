@@ -1,0 +1,5 @@
+Test ID,Test Objective,Steps to Execute,Expected Outcome,Observed Outcome,Result,Priority,Assigned To,Notes
+TC101,Verify product catalog display,Navigate to the product page > Inspect listings,Products should load and display correctly,Items are visible and correctly listed,Passed,Low,-,No discrepancies observed
+TC102,Assess API failure response,Disable API connection > Reload the page,An error message should be displayed,Error message appears as expected,Passed,Medium,-,Proper fallback implemented
+TC103,Validate shopping cart updates,Add an item to the cart > Check cart contents,Cart should reflect the added product,Cart updates accurately,Passed,High,-,Functionality is intact
+TC104,Test mobile responsiveness,Adjust browser width > Evaluate layout behavior,Layout should dynamically adapt,Responsive behavior is functioning well,Passed,Medium,-,No layout issues detected
